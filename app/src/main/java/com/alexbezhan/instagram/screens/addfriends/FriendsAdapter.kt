@@ -6,14 +6,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.alexbezhan.instagram.R
+import com.alexbezhan.instagram.databinding.ActivityAddFriendsBinding
+import com.alexbezhan.instagram.databinding.AddFriendsItemBinding
 import com.alexbezhan.instagram.models.User
 import com.alexbezhan.instagram.screens.common.SimpleCallback
 import com.alexbezhan.instagram.screens.common.loadUserPhoto
-import kotlinx.android.synthetic.main.add_friends_item.view.*
+//import kotlinx.android.synthetic.main.add_friends_item.view.*
 
 class FriendsAdapter(private val listener: Listener)
     : RecyclerView.Adapter<FriendsAdapter.ViewHolder>() {
-
+    private lateinit var binding: AddFriendsItemBinding
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
     interface Listener {
@@ -26,27 +28,29 @@ class FriendsAdapter(private val listener: Listener)
     private var mFollows = mapOf<String, Boolean>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.add_friends_item, parent, false)
+        binding = AddFriendsItemBinding.bind(view)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder.view) {
             val user = mUsers[position]
-            photo_image.loadUserPhoto(user.photo)
-            username_text.text = user.username
-            name_text.text = user.name
-            follow_btn.setOnClickListener { listener.follow(user.uid) }
-            unfollow_btn.setOnClickListener { listener.unfollow(user.uid) }
+            binding.photoImage.loadUserPhoto(user.photo)
+            binding.usernameText.text = user.username
+            binding.nameText.text = user.name
+            binding.followBtn.setOnClickListener { listener.follow(user.uid) }
+            binding.unfollowBtn.setOnClickListener { listener.unfollow(user.uid) }
 
             val follows = mFollows[user.uid] ?: false
             if (follows) {
-                follow_btn.visibility = View.GONE
-                unfollow_btn.visibility = View.VISIBLE
+                binding.followBtn.visibility = View.GONE
+                binding.unfollowBtn.visibility = View.VISIBLE
             } else {
-                follow_btn.visibility = View.VISIBLE
-                unfollow_btn.visibility = View.GONE
+                binding.followBtn.visibility = View.VISIBLE
+                binding.unfollowBtn.visibility = View.GONE
             }
         }
     }
