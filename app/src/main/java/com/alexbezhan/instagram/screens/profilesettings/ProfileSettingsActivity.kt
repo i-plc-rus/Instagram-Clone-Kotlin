@@ -2,19 +2,24 @@ package com.alexbezhan.instagram.screens.profilesettings
 
 import android.os.Bundle
 import com.alexbezhan.instagram.R
+import com.alexbezhan.instagram.databinding.ActivityProfileBinding
+import com.alexbezhan.instagram.databinding.ActivityProfileSettingsBinding
 import com.alexbezhan.instagram.screens.common.BaseActivity
 import com.alexbezhan.instagram.screens.common.setupAuthGuard
-import kotlinx.android.synthetic.main.activity_profile_settings.*
+//import kotlinx.android.synthetic.main.activity_profile_settings.*
 
 class ProfileSettingsActivity : BaseActivity() {
+    private lateinit var binding: ActivityProfileSettingsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_settings)
+        binding = ActivityProfileSettingsBinding.inflate(layoutInflater)
 
         setupAuthGuard {
             val viewModel = initViewModel<ProfileSettingsViewModel>()
-            sign_out_text.setOnClickListener { viewModel.signOut() }
-            back_image.setOnClickListener { finish() }
+            binding.signOutText.setOnClickListener { viewModel.signOut() }
+            binding.backImage.setOnClickListener { finish() }
         }
     }
 }

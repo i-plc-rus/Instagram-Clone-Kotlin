@@ -13,6 +13,7 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.Observer
 import androidx.lifecycle.OnLifecycleEvent
 import com.alexbezhan.instagram.R
+import com.alexbezhan.instagram.databinding.ActivityCommentsBinding
 import com.alexbezhan.instagram.models.Notification
 import com.alexbezhan.instagram.models.NotificationType
 import com.alexbezhan.instagram.screens.home.HomeActivity
@@ -25,8 +26,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.nhaarman.supertooltips.ToolTip
 import com.nhaarman.supertooltips.ToolTipRelativeLayout
 import com.nhaarman.supertooltips.ToolTipView
-import kotlinx.android.synthetic.main.bottom_navigation_view.*
-import kotlinx.android.synthetic.main.notifications_tooltip_content.view.*
+//import kotlinx.android.synthetic.main.bottom_navigation_view.*
+//import com.alexbezhan.instagram.databinding.BottomNavigationViewBinding
+//import kotlinx.android.synthetic.main.notifications_tooltip_content.view.*
+import com.alexbezhan.instagram.databinding.NotificationsTooltipContentBinding
+import com.alexbezhan.instagram.databinding.BottomNavigationViewBinding
 
 class InstagramBottomNavigation(
     private val uid: String,
@@ -39,6 +43,10 @@ class InstagramBottomNavigation(
     private lateinit var mViewModel: NotificationsViewModel
     private lateinit var mNotificationsContentView: View
     private var lastTooltipView: ToolTipView? = null
+    //+++
+    private lateinit var binding :NotificationsTooltipContentBinding
+
+
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
@@ -52,6 +60,7 @@ class InstagramBottomNavigation(
                 showNotifications(it)
             }
         })
+        binding = NotificationsTooltipContentBinding.bind(mNotificationsContentView)
     }
 
     private fun showNotifications(notifications: List<Notification>) {
@@ -82,9 +91,9 @@ class InstagramBottomNavigation(
         }
 
         with(mNotificationsContentView) {
-            setCount(likes_image, likes_count_text, NotificationType.Like)
-            setCount(follows_image, follows_count_text, NotificationType.Follow)
-            setCount(comments_image, comments_count_text, NotificationType.Comment)
+            setCount(binding.likesImage, binding.likesCountText, NotificationType.Like)
+            setCount(binding.followsImage, binding.followsCountText, NotificationType.Follow)
+            setCount(binding.commentsImage, binding.commentsCountText, NotificationType.Comment)
         }
 
         if (newNotifications.isNotEmpty()) {
@@ -143,7 +152,15 @@ class InstagramBottomNavigation(
 }
 
 fun BaseActivity.setupBottomNavigation(uid: String, navNumber: Int) {
+    lateinit var mBottomNavigationView: View
+    lateinit var binding1 :BottomNavigationViewBinding
+
+    mBottomNavigationView = this.layoutInflater.inflate(
+        R.layout.bottom_navigation_view, null, false
+    )
+    binding1 = BottomNavigationViewBinding.bind(mBottomNavigationView)
+
     val bnv =
-        InstagramBottomNavigation(uid, bottom_navigation_view, tooltip_layout, navNumber, this)
+        InstagramBottomNavigation(uid, binding1.bottomNavigationView, binding1.tooltipLayout, navNumber, this)
     this.lifecycle.addObserver(bnv)
 }

@@ -6,22 +6,26 @@ import android.util.Log
 import androidx.lifecycle.Observer
 import com.alexbezhan.instagram.R
 import com.alexbezhan.instagram.data.firebase.common.FirebaseHelper
+import com.alexbezhan.instagram.databinding.ActivitySearchBinding
+import com.alexbezhan.instagram.databinding.ActivityShareBinding
 import com.alexbezhan.instagram.models.User
 import com.alexbezhan.instagram.screens.common.BaseActivity
 import com.alexbezhan.instagram.screens.common.CameraHelper
 import com.alexbezhan.instagram.screens.common.loadImage
 import com.alexbezhan.instagram.screens.common.setupAuthGuard
-import kotlinx.android.synthetic.main.activity_share.*
+//import kotlinx.android.synthetic.main.activity_share.*
 
 class ShareActivity : BaseActivity() {
     private lateinit var mCamera: CameraHelper
     private lateinit var mFirebase: FirebaseHelper
     private lateinit var mUser: User
     private lateinit var mViewModel: ShareViewModel
+    private lateinit var binding: ActivityShareBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_share)
+        binding = ActivityShareBinding.inflate(layoutInflater)
         Log.d(TAG, "onCreate")
 
         setupAuthGuard {
@@ -31,8 +35,8 @@ class ShareActivity : BaseActivity() {
             mCamera = CameraHelper(this)
             mCamera.takeCameraPicture()
 
-            back_image.setOnClickListener { finish() }
-            share_text.setOnClickListener { share() }
+            binding.backImage.setOnClickListener { finish() }
+            binding.shareText.setOnClickListener { share() }
 
             mViewModel.user.observe(this, Observer {
                 it?.let {
@@ -49,7 +53,7 @@ class ShareActivity : BaseActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == mCamera.REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                post_image.loadImage(mCamera.imageUri?.toString())
+                binding.postImage.loadImage(mCamera.imageUri?.toString())
             } else {
                 finish()
             }
@@ -57,7 +61,7 @@ class ShareActivity : BaseActivity() {
     }
 
     private fun share() {
-        mViewModel.share(mUser, mCamera.imageUri, caption_input.text.toString())
+        mViewModel.share(mUser, mCamera.imageUri, binding.captionInput.text.toString())
     }
 
     companion object {

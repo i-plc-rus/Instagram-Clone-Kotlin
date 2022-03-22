@@ -7,12 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.alexbezhan.instagram.R
+import com.alexbezhan.instagram.databinding.FragmentRegisterEmailBinding
 import com.alexbezhan.instagram.screens.common.coordinateBtnAndInputs
-import kotlinx.android.synthetic.main.fragment_register_email.*
+//import kotlinx.android.synthetic.main.fragment_register_email.*
 
 class EmailFragment : Fragment() {
     private lateinit var mListener: Listener
-
+    private lateinit var binding: FragmentRegisterEmailBinding
     interface Listener {
         fun onNext(email: String)
     }
@@ -23,10 +24,11 @@ class EmailFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        coordinateBtnAndInputs(next_btn, email_input)
+        binding = FragmentRegisterEmailBinding.bind(view)
+        coordinateBtnAndInputs(binding.nextBtn, binding.emailInput)
 
-        next_btn.setOnClickListener {
-            val email = email_input.text.toString()
+        binding.nextBtn.setOnClickListener {
+            val email = binding.emailInput.text.toString()
             mListener.onNext(email)
         }
     }

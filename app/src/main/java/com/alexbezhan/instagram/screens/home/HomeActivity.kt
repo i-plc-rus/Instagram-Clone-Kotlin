@@ -5,24 +5,28 @@ import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexbezhan.instagram.R
+import com.alexbezhan.instagram.databinding.ActivityCommentsBinding
+import com.alexbezhan.instagram.databinding.ActivityHomeBinding
 import com.alexbezhan.instagram.screens.comments.CommentsActivity
 import com.alexbezhan.instagram.screens.common.BaseActivity
 import com.alexbezhan.instagram.screens.common.setupAuthGuard
 import com.alexbezhan.instagram.screens.common.setupBottomNavigation
-import kotlinx.android.synthetic.main.activity_home.*
+//import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : BaseActivity(), FeedAdapter.Listener {
     private lateinit var mAdapter: FeedAdapter
     private lateinit var mViewModel: HomeViewModel
+    private lateinit var binding : ActivityHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        binding = ActivityHomeBinding.inflate(layoutInflater)
         Log.d(TAG, "onCreate")
 
         mAdapter = FeedAdapter(this)
-        feed_recycler.adapter = mAdapter
-        feed_recycler.layoutManager = LinearLayoutManager(this)
+        binding.feedRecycler.adapter = mAdapter
+        binding.feedRecycler.layoutManager = LinearLayoutManager(this)
 
         setupAuthGuard { uid ->
             setupBottomNavigation(uid, 0)

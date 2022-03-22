@@ -6,16 +6,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.alexbezhan.instagram.R
+import com.alexbezhan.instagram.databinding.FeedItemBinding
 import com.alexbezhan.instagram.models.FeedPost
 import com.alexbezhan.instagram.screens.common.SimpleCallback
 import com.alexbezhan.instagram.screens.common.loadImage
 import com.alexbezhan.instagram.screens.common.loadUserPhoto
 import com.alexbezhan.instagram.screens.common.setCaptionText
-import kotlinx.android.synthetic.main.feed_item.view.*
+//import kotlinx.android.synthetic.main.feed_item.view.*
 
 class FeedAdapter(private val listener: Listener)
     : RecyclerView.Adapter<FeedAdapter.ViewHolder>() {
-
+    private lateinit var binding: FeedItemBinding
     interface Listener {
         fun toggleLike(postId: String)
         fun loadLikes(postId: String, position: Int)
@@ -31,6 +32,7 @@ class FeedAdapter(private val listener: Listener)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.feed_item, parent, false)
+        binding = FeedItemBinding.bind(view)
         return ViewHolder(view)
     }
 
@@ -43,23 +45,23 @@ class FeedAdapter(private val listener: Listener)
         val post = posts[position]
         val likes = postLikes[position] ?: defaultPostLikes
         with(holder.view) {
-            user_photo_image.loadUserPhoto(post.photo)
-            username_text.text = post.username
-            post_image.loadImage(post.image)
+            binding.userPhotoImage.loadUserPhoto(post.photo)
+            binding.usernameText.text = post.username
+            binding.postImage.loadImage(post.image)
             if (likes.likesCount == 0) {
-                likes_text.visibility = View.GONE
+                binding.likesText.visibility = View.GONE
             } else {
-                likes_text.visibility = View.VISIBLE
+                binding.likesText.visibility = View.VISIBLE
                 val likesCountText = holder.view.context.resources.getQuantityString(
                         R.plurals.likes_count, likes.likesCount, likes.likesCount)
-                likes_text.text = likesCountText
+                binding.likesText.text = likesCountText
             }
-            caption_text.setCaptionText(post.username, post.caption)
-            like_image.setOnClickListener { listener.toggleLike(post.id) }
-            like_image.setImageResource(
+            binding.captionText.setCaptionText(post.username, post.caption)
+            binding.likeImage.setOnClickListener { listener.toggleLike(post.id) }
+            binding.likeImage.setImageResource(
                     if (likes.likedByUser) R.drawable.ic_likes_active
                     else R.drawable.ic_likes_border)
-            comment_image.setOnClickListener { listener.openComments(post.id) }
+            binding.commentImage.setOnClickListener { listener.openComments(post.id) }
             listener.loadLikes(post.id, position)
         }
     }

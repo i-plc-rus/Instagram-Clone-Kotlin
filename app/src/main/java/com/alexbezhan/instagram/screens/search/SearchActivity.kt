@@ -8,34 +8,37 @@ import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alexbezhan.instagram.R
+import com.alexbezhan.instagram.databinding.ActivitySearchBinding
 import com.alexbezhan.instagram.screens.common.BaseActivity
 import com.alexbezhan.instagram.screens.common.ImagesAdapter
 import com.alexbezhan.instagram.screens.common.setupAuthGuard
 import com.alexbezhan.instagram.screens.common.setupBottomNavigation
-import kotlinx.android.synthetic.main.activity_search.*
+//import kotlinx.android.synthetic.main.activity_search.*
 
 class SearchActivity : BaseActivity(), TextWatcher {
     private lateinit var mAdapter: ImagesAdapter
     private lateinit var mViewModel: SearchViewModel
     private var isSearchEntered = false
+    private lateinit var binding: ActivitySearchBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
+        binding = ActivitySearchBinding.inflate(layoutInflater)
         Log.d(TAG, "onCreate")
 
         setupAuthGuard {uid ->
             setupBottomNavigation(uid,1)
             mAdapter = ImagesAdapter()
-            search_results_recycler.layoutManager = GridLayoutManager(this, 3)
-            search_results_recycler.adapter = mAdapter
+            binding.searchResultsRecycler.layoutManager = GridLayoutManager(this, 3)
+            binding.searchResultsRecycler.adapter = mAdapter
 
             mViewModel = initViewModel()
             mViewModel.posts.observe(this, Observer{it?.let{posts ->
                 mAdapter.updateImages(posts.map { it.image })
             }})
 
-            search_input.addTextChangedListener(this)
+            binding.searchInput.addTextChangedListener(this)
             mViewModel.setSearchText("")
         }
     }
@@ -45,7 +48,7 @@ class SearchActivity : BaseActivity(), TextWatcher {
             isSearchEntered = true
             Handler().postDelayed({
                 isSearchEntered = false
-                mViewModel.setSearchText(search_input.text.toString())
+                mViewModel.setSearchText(binding.searchInput.text.toString())
             }, 500)
         }
     }

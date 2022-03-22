@@ -6,37 +6,39 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.alexbezhan.instagram.R
+import com.alexbezhan.instagram.databinding.NotificationItemBinding
 import com.alexbezhan.instagram.models.Notification
 import com.alexbezhan.instagram.models.NotificationType
 import com.alexbezhan.instagram.screens.common.SimpleCallback
 import com.alexbezhan.instagram.screens.common.loadImageOrHide
 import com.alexbezhan.instagram.screens.common.loadUserPhoto
 import com.alexbezhan.instagram.screens.common.setCaptionText
-import kotlinx.android.synthetic.main.notification_item.view.*
+//import kotlinx.android.synthetic.main.notification_item.view.*
 
 class NotificationsAdapter : RecyclerView.Adapter<NotificationsAdapter.ViewHolder>() {
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
     private var notifications = listOf<Notification>()
-
+    private lateinit var binding: NotificationItemBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.notification_item, parent, false)
+        binding = NotificationItemBinding.bind(view)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val notification = notifications[position]
         with(holder.view) {
-            user_photo.loadUserPhoto(notification.photo)
+            binding.userPhoto.loadUserPhoto(notification.photo)
             val notificationText = when (notification.type) {
                 NotificationType.Comment -> context.getString(R.string.commented, notification.commentText)
                 NotificationType.Like -> context.getString(R.string.liked_your_post)
                 NotificationType.Follow -> context.getString(R.string.started_following_you)
             }
-            notification_text.setCaptionText(notification.username, notificationText,
+            binding.notificationText.setCaptionText(notification.username, notificationText,
                     notification.timestampDate())
-            post_image.loadImageOrHide(notification.postImage)
+            binding.postImage.loadImageOrHide(notification.postImage)
         }
     }
 

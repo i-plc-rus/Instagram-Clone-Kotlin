@@ -4,25 +4,29 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.alexbezhan.instagram.R
+import com.alexbezhan.instagram.databinding.ActivityCommentsBinding
+import com.alexbezhan.instagram.databinding.ActivityEditProfileBinding
 import com.alexbezhan.instagram.models.User
 import com.alexbezhan.instagram.screens.common.*
-import kotlinx.android.synthetic.main.activity_edit_profile.*
+//import kotlinx.android.synthetic.main.activity_edit_profile.*
 
 class EditProfileActivity : BaseActivity(), PasswordDialog.Listener {
     private lateinit var mUser: User
     private lateinit var mPendingUser: User
     private lateinit var mCamera: CameraHelper
     private lateinit var mViewModel: EditProfileViewModel
-
+    private lateinit var binding: ActivityEditProfileBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityEditProfileBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_edit_profile)
+
 
         mCamera = CameraHelper(this)
 
-        back_image.setOnClickListener { finish() }
-        save_image.setOnClickListener { updateProfile() }
-        change_photo_text.setOnClickListener { mCamera.takeCameraPicture() }
+        binding.backImage.setOnClickListener { finish() }
+        binding.saveImage.setOnClickListener { updateProfile() }
+        binding.changePhotoText.setOnClickListener { mCamera.takeCameraPicture() }
 
         setupAuthGuard {
             mViewModel = initViewModel()
@@ -30,13 +34,13 @@ class EditProfileActivity : BaseActivity(), PasswordDialog.Listener {
             mViewModel.user.observe(this, Observer {
                 it?.let {
                     mUser = it
-                    name_input.setText(mUser.name)
-                    username_input.setText(mUser.username)
-                    website_input.setText(mUser.website)
-                    bio_input.setText(mUser.bio)
-                    email_input.setText(mUser.email)
-                    phone_input.setText(mUser.phone?.toString())
-                    profile_image.loadUserPhoto(mUser.photo)
+                    binding.nameInput.setText(mUser.name)
+                    binding.usernameInput.setText(mUser.username)
+                    binding.websiteInput.setText(mUser.website)
+                    binding.bioInput.setText(mUser.bio)
+                    binding.emailInput.setText(mUser.email)
+                    binding.phoneInput.setText(mUser.phone?.toString())
+                    binding.profileImage.loadUserPhoto(mUser.photo)
                 }
             })
         }
@@ -66,12 +70,12 @@ class EditProfileActivity : BaseActivity(), PasswordDialog.Listener {
 
     private fun readInputs(): User {
         return User(
-                name = name_input.text.toString(),
-                username = username_input.text.toString(),
-                email = email_input.text.toString(),
-                website = website_input.text.toStringOrNull(),
-                bio = bio_input.text.toStringOrNull(),
-                phone = phone_input.text.toString().toLongOrNull()
+                name = binding.nameInput.text.toString(),
+                username = binding.usernameInput.text.toString(),
+                email = binding.emailInput.text.toString(),
+                website = binding.websiteInput.text.toStringOrNull(),
+                bio = binding.bioInput.text.toStringOrNull(),
+                phone = binding.phoneInput.text.toString().toLongOrNull()
         )
     }
 

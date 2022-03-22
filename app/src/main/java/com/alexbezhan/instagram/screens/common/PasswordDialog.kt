@@ -6,11 +6,13 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.alexbezhan.instagram.R
-import kotlinx.android.synthetic.main.dialog_password.view.*
+import com.alexbezhan.instagram.databinding.DialogPasswordBinding
+
+//import kotlinx.android.synthetic.main.dialog_password.view.*
 
 class PasswordDialog : DialogFragment() {
     private lateinit var mListener: Listener
-
+    private lateinit var binding: DialogPasswordBinding
     interface Listener {
         fun onPasswordConfirm(password: String)
     }
@@ -22,10 +24,11 @@ class PasswordDialog : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val view = activity!!.layoutInflater.inflate(R.layout.dialog_password, null)
+        binding = DialogPasswordBinding.bind(view)
         return AlertDialog.Builder(context!!)
                 .setView(view)
                 .setPositiveButton(android.R.string.ok, {_, _ ->
-                    mListener.onPasswordConfirm(view.password_input.text.toString())
+                    mListener.onPasswordConfirm(binding.passwordInput.text.toString())
                 })
                 .setNegativeButton(android.R.string.cancel, {_, _ ->
                     // do nothing
