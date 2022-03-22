@@ -23,8 +23,9 @@ class LoginActivity : BaseActivity(), KeyboardVisibilityEventListener, View.OnCl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
         binding = ActivityLoginBinding.inflate(layoutInflater)
+        //setContentView(R.layout.activity_login)
+        setContentView(binding.root)
         Log.d(TAG, "onCreate")
 
         KeyboardVisibilityEvent.setEventListener(this, this)
@@ -41,9 +42,11 @@ class LoginActivity : BaseActivity(), KeyboardVisibilityEventListener, View.OnCl
             startActivity(Intent(this, RegisterActivity::class.java))
         })
         mAuth = FirebaseAuth.getInstance()
+
     }
 
     override fun onClick(view: View) {
+        Log.d(TAG,"click")
         when (view.id) {
             R.id.login_btn ->
                 mViewModel.onLoginClick(

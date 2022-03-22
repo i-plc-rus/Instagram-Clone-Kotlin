@@ -152,15 +152,19 @@ class InstagramBottomNavigation(
 }
 
 fun BaseActivity.setupBottomNavigation(uid: String, navNumber: Int) {
-    lateinit var mBottomNavigationView: View
-    lateinit var binding1 :BottomNavigationViewBinding
+    //lateinit var binding1 :BottomNavigationViewBinding
+    /*lateinit var mBottomNavigationView: View
+
 
     mBottomNavigationView = this.layoutInflater.inflate(
         R.layout.bottom_navigation_view, null, false
     )
+    binding1 = BottomNavigationViewBinding.bind(mBottomNavigationView)*/
+    /*var mBottomNavigationView = this.layoutInflater.inflate(
+        R.layout.bottom_navigation_view, null, false
+    )
     binding1 = BottomNavigationViewBinding.bind(mBottomNavigationView)
-
     val bnv =
         InstagramBottomNavigation(uid, binding1.bottomNavigationView, binding1.tooltipLayout, navNumber, this)
-    this.lifecycle.addObserver(bnv)
+    this.lifecycle.addObserver(bnv)*/
 }

@@ -19,8 +19,9 @@ class ProfileActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile)
+        //setContentView(R.layout.activity_profile)
         binding = ActivityProfileBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         Log.d(TAG, "onCreate")
 

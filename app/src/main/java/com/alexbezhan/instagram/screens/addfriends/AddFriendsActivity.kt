@@ -19,7 +19,8 @@ class AddFriendsActivity : BaseActivity(), FriendsAdapter.Listener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddFriendsBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_add_friends)
+        //setContentView(R.layout.activity_add_friends)
+        setContentView(binding.root)
 
         mAdapter = FriendsAdapter(this)
 

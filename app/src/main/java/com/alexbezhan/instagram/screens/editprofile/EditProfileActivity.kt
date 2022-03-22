@@ -19,7 +19,8 @@ class EditProfileActivity : BaseActivity(), PasswordDialog.Listener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEditProfileBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_edit_profile)
+        //setContentView(R.layout.activity_edit_profile)
+        setContentView(binding.root)
 
 
         mCamera = CameraHelper(this)

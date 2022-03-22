@@ -20,8 +20,9 @@ class HomeActivity : BaseActivity(), FeedAdapter.Listener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        //setContentView(R.layout.activity_home)
         binding = ActivityHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         Log.d(TAG, "onCreate")
 
         mAdapter = FeedAdapter(this)

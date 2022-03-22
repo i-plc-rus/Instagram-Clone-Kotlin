@@ -24,8 +24,9 @@ class ShareActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_share)
+        //setContentView(R.layout.activity_share)
         binding = ActivityShareBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         Log.d(TAG, "onCreate")
 
         setupAuthGuard {

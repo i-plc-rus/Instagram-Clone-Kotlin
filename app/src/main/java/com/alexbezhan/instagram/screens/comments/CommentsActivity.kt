@@ -22,7 +22,8 @@ class CommentsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCommentsBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_comments)
+        //setContentView(R.layout.activity_comments)
+        setContentView(binding.root)
 
         val postId = intent.getStringExtra(EXTRA_POST_ID) ?: return finish()
 

@@ -23,8 +23,9 @@ class SearchActivity : BaseActivity(), TextWatcher {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_search)
+        //setContentView(R.layout.activity_search)
         binding = ActivitySearchBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         Log.d(TAG, "onCreate")
 
         setupAuthGuard {uid ->

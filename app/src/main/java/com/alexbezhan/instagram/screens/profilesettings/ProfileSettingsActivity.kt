@@ -13,8 +13,9 @@ class ProfileSettingsActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile_settings)
         binding = ActivityProfileSettingsBinding.inflate(layoutInflater)
+        //setContentView(R.layout.activity_profile_settings)
+        setContentView(binding.root)
 
         setupAuthGuard {
             val viewModel = initViewModel<ProfileSettingsViewModel>()

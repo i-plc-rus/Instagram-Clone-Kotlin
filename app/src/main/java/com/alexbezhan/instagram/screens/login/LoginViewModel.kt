@@ -1,6 +1,7 @@
 package com.alexbezhan.instagram.screens.login
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.alexbezhan.instagram.R
 import com.alexbezhan.instagram.common.AuthManager
@@ -19,6 +20,7 @@ class LoginViewModel(private val authManager: AuthManager,
     val goToRegisterScreen: LiveData<Unit> = _goToRegisterScreen
 
     fun onLoginClick(email: String, password: String) {
+        
         if (validate(email, password)) {
             authManager.signIn(email, password).addOnSuccessListener {
                 _goToHomeScreen.value = Unit

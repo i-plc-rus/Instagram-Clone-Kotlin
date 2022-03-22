@@ -17,8 +17,9 @@ class NotificationsActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_notifications)
+        //setContentView(R.layout.activity_notifications)
         binding = ActivityNotificationsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         Log.d(TAG, "onCreate")
 
         setupAuthGuard { uid ->
