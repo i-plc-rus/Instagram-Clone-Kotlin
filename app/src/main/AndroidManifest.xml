@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.alexbezhan.instagram">
+    package="ru.iplc.gallery">
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -22,7 +22,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".screens.search.SearchActivity" />
-        <activity android:name=".screens.share.ShareActivity" />
+        <activity android:name=".screens.share.ShareActivity">
+
+        </activity>
         <activity android:name=".screens.notifications.NotificationsActivity" />
         <activity android:name=".screens.profile.ProfileActivity" />
         <activity android:name=".screens.editprofile.EditProfileActivity" />
@@ -38,7 +40,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.alexbezhan.instagram.fileprovider"
+            android:authorities="ru.iplc.gallery.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
