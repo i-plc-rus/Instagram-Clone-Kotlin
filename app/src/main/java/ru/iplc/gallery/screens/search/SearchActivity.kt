@@ -29,8 +29,10 @@ class SearchActivity : BaseActivity(), TextWatcher {
         Log.d(TAG, "onCreate")
 
         setupAuthGuard {uid ->
-            setupBottomNavigation(uid,1)
+            setupBottomNavigation(uid,1,binding.bottomNavigationView)
+            Log.d(TAG, "Adapter->")
             mAdapter = ImagesAdapter()
+
             binding.searchResultsRecycler.layoutManager = GridLayoutManager(this, 3)
             binding.searchResultsRecycler.adapter = mAdapter
 

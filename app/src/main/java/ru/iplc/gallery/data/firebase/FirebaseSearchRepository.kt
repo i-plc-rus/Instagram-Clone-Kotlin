@@ -1,5 +1,7 @@
 package ru.iplc.gallery.data.firebase
 
+import android.provider.ContactsContract
+import android.util.Log
 import androidx.lifecycle.LiveData
 import ru.iplc.gallery.common.toUnit
 import ru.iplc.gallery.data.SearchRepository
@@ -16,6 +18,8 @@ class FirebaseSearchRepository : SearchRepository {
                     .setValue(post.copy(caption = post.caption.toLowerCase())).toUnit()
 
     override fun searchPosts(text: String): LiveData<List<SearchPost>> {
+
+
         val reference = database.child("search-posts")
         val query = if (text.isEmpty()) {
             reference
@@ -23,9 +27,13 @@ class FirebaseSearchRepository : SearchRepository {
             reference.orderByChild("caption")
                     .startAt(text.toLowerCase()).endAt("${text.toLowerCase()}\\uf8ff")
         }
-        return FirebaseLiveData(query).map {
-            it.children.map { it.asSearchPost()!! }
-        }
+        //Log.d("ERROR_DB",FirebaseLiveData(query).value.toString())
+        //return listOf <SearchPost>(null)
+        var mydataSnapshot = FirebaseLiveData(query).map {
+                        it.children.map { it.asSearchPost()!! }
+                        }
+        Log.d("ERROR_DB", listOf(mydataSnapshot)[0].toString())
+        return mydataSnapshot
     }
 }
 

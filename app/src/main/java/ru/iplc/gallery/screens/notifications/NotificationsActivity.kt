@@ -23,7 +23,7 @@ class NotificationsActivity : BaseActivity() {
         Log.d(TAG, "onCreate")
 
         setupAuthGuard { uid ->
-            setupBottomNavigation(uid,3)
+            setupBottomNavigation(uid,3, binding.bottomNavigationView)
             mAdapter = NotificationsAdapter()
             binding.notificationsRecycler.layoutManager = LinearLayoutManager(this)
             binding.notificationsRecycler.adapter = mAdapter

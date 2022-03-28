@@ -8,6 +8,7 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.core.content.ContextCompat
@@ -80,6 +81,8 @@ fun ImageView.loadUserPhoto(photoUrl: String?) =
 
 fun ImageView.loadImage(image: String?) =
         ifNotDestroyed {
+            Log.d("SearchActivity", "Glide->")
+            Log.d("SearchActivity", image.toString())
             Glide.with(this).load(image).centerCrop().into(this)
         }
 

@@ -18,8 +18,17 @@
             android:layout_marginEnd="50dp"
             android:layout_marginStart="50dp"
             android:layout_marginTop="50dp"
-            android:src="@drawable/clipart541623"
+            android:src="@drawable/ic_logo_full"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Введите логин и пароль"
+            android:inputType="textEmailAddress"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/instagram_image" />
 
         <EditText
             android:id="@+id/email_input"

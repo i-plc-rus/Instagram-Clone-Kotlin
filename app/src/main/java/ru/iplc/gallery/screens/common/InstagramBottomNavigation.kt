@@ -153,24 +153,24 @@ class InstagramBottomNavigation(
     }
 }
 
-fun BaseActivity.setupBottomNavigation(uid: String, navNumber: Int) {
-    lateinit var binding1 :BottomNavigationViewBinding
-    lateinit var mBottomNavigationView: View
+fun BaseActivity.setupBottomNavigation(uid: String, navNumber: Int, navigationBinding: BottomNavigationViewBinding) {
+    /*lateinit var binding1 :BottomNavigationViewBinding
+    lateinit var mBottomNavigationView: View*/
 
     /*
     binding = ActivityEditProfileBinding.inflate(layoutInflater)
         //setContentView(R.layout.activity_edit_profile)
         setContentView(binding.root)
      */
-    binding1 = BottomNavigationViewBinding.inflate(layoutInflater)
-    setContentView(binding1.root)
+    /*binding1 = BottomNavigationViewBinding.inflate(layoutInflater)
+    setContentView(binding1.root)*/
     /*mBottomNavigationView = this.layoutInflater.inflate(
         R.layout.bottom_navigation_view, null, false
     )
     binding1 = BottomNavigationViewBinding.bind(mBottomNavigationView)*/
-    binding1.testText.setText("rrrr")
+    //binding1.testText.setText("rrrr")
     val bnv =
-        InstagramBottomNavigation(uid, binding1.bottomNavigationView, binding1.tooltipLayout, navNumber, this)
+        InstagramBottomNavigation(uid, navigationBinding.bottomNavigationView, navigationBinding.tooltipLayout, navNumber, this)
 
     this.lifecycle.addObserver(bnv)
 }

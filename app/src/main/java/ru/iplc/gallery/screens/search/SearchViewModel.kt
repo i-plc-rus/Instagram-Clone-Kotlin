@@ -1,5 +1,6 @@
 package ru.iplc.gallery.screens.search
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations

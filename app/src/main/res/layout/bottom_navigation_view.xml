@@ -23,11 +23,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_navigation_menu" />
 
-    <TextView
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:text="ttt"
-        android:id="@+id/test_text"
-        app:layout_constraintBottom_toBottomOf="parent"></TextView>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package ru.iplc.gallery.screens.common
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -20,12 +21,14 @@ class ImagesAdapter : RecyclerView.Adapter<ImagesAdapter.ViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+
         val image = LayoutInflater.from(parent.context)
                 .inflate(R.layout.image_item, parent, false) as ImageView
         return ViewHolder(image)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
         holder.image.loadImage(images[position])
     }
 
